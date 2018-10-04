@@ -13,13 +13,23 @@ class Metronome extends Component {
       bpm: 100,
       beatsPerMeasure: 4,
     }
+
+    //create Audio objects with the files Webpack loaded, and we'll play them later.  Audio object is already given to us, I believe thanks to Webpack when you installed react.js
+    this.click1 = new Audio(click1);
+    this.click2 = new Audio(click2);
   }
 
   handleBpmChange = event => {
+    //this method allows the user to move the slider by changing the value of the bpm in the state
     const bpm = event.target.value;
     this.setState({
       bpm
     });
+  }
+
+  startStop = () => {
+    // uses the audio that was downloaded and loaded into the file. We are using the play()
+    this.click1.play();
   }
 
   render() {
@@ -37,7 +47,7 @@ class Metronome extends Component {
             onChange={this.handleBpmChange}
           />
         </div>
-        <button>{playing ? 'Playing' : 'Stop'}</button>
+        <button  onClick={this.startStop}>{playing ? 'Playing' : 'Stop'}</button>
       </div>
     );
   }
