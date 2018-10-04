@@ -81,18 +81,44 @@ class Metronome extends Component {
 
   decreaseClick = () => {
     const { bpm } = this.state;
-    if(bpm > 65) {
-      this.setState({
-        bpm: this.state.bpm - 5,
-      });
-    }
+
+      if (bpm > 65 && this.state.playing) {
+        //stop the old timer and start a new one
+        clearInterval(this.timer);
+        this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+  
+        // Set the new BPM, and reset the beat counter
+        this.setState({
+          count: 0,
+          bpm: this.state.bpm - 5,
+        });
+  
+      } else {
+        // Otherwise just update the BPM
+        this.setState({
+          bpm
+        });
+      }
   }
 
   increaseClick = () => {
     const { bpm } = this.state;
-    if(bpm < 235) {
+
+    if (bpm < 235 && this.state.playing) {
+      //stop the old timer and start a new one
+      clearInterval(this.timer);
+      this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+
+      // Set the new BPM, and reset the beat counter
       this.setState({
+        count: 0,
         bpm: this.state.bpm + 5,
+      });
+
+    } else {
+      // Otherwise just update the BPM
+      this.setState({
+        bpm
       });
     }
   }
