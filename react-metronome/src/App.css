@@ -10,13 +10,50 @@
   margin: 10px;
 }
 
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
 .App button {
   background: #c94d46;
   padding: 10px;
   border: 1px solid #832420;
   border-radius: 2px;
-  width: 100px;
   color: #fff;
   font-size: 18px;
 }
 
+.start {
+  width: 100px;
+}
+
+.increase {
+  float: right;
+  background: #c94d46;
+  border: 1px solid #832420;
+  border-radius: 2px;
+}
+
+.decrease {
+  float: left;
+  background: #c94d46;
+  border: 1px solid #832420;
+  border-radius: 2px;
+}
+
+.down {
+  -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  background-color: black;
+  height: 20px;
+  width: 30px;
+}
+
+.up {
+  -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: black;
+  height: 20px;
+  width: 30px;
+}

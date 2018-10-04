@@ -35,6 +35,7 @@ class Metronome extends Component {
         count: 0,
         bpm
       });
+
     } else {
       // Otherwise just update the BPM
       this.setState({
@@ -93,7 +94,11 @@ class Metronome extends Component {
             onChange={this.handleBpmChange}
           />
         </div>
-        <button onClick={this.startStop}>{!playing ? 'Start' : 'Stop'}</button>
+        <div className="buttons">
+          <button className="decrease"><div className="down"></div></button>
+          <button className="start" onClick={this.startStop}>{!playing ? 'Start' : 'Stop'}</button>
+          <button className="increase"><div className="up"></div></button>
+        </div>
       </div>
     );
   }
