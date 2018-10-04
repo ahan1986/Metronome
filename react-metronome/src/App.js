@@ -22,9 +22,26 @@ class Metronome extends Component {
   handleBpmChange = event => {
     //this method allows the user to move the slider by changing the value of the bpm in the state
     const bpm = event.target.value;
-    this.setState({
-      bpm
-    });
+
+    // when the user moves the slider as it's going, set this method so it changes the tempo as well and not stopping it and starting up again
+
+    if (this.state.playing) {
+      //stop the old timer and start a new one
+      clearInterval(this.timer);
+      this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+
+      // Set the new BPM, and reset the beat counter
+      this.setState({
+        count: 0,
+        bpm
+      });
+    } else {
+      // Otherwise just update the BPM
+      this.setState({
+        bpm
+      });
+    }
+
   }
 
   startStop = () => {
@@ -35,14 +52,12 @@ class Metronome extends Component {
         playing: false,
       });
     } else {
-      setInterval(this.playClick(), 1000);
+      this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000);
       this.setState({
         count: 0,
         playing: true
         //Play a click 'immediately' (after setState finishes)
       });
-
-        this.playClick()
     };
   }
 
@@ -59,7 +74,7 @@ class Metronome extends Component {
 
     //Keep track of which beat we're on
     this.setState(state => ({
-      count: ( state.count +1 ) % state.beatsPerMeasure
+      count: (state.count + 1) % state.beatsPerMeasure
     }));
   }
 
