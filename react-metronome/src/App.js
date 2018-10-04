@@ -79,6 +79,24 @@ class Metronome extends Component {
     }));
   }
 
+  decreaseClick = () => {
+    const { bpm } = this.state;
+    if(bpm > 65) {
+      this.setState({
+        bpm: this.state.bpm - 5,
+      });
+    }
+  }
+
+  increaseClick = () => {
+    const { bpm } = this.state;
+    if(bpm < 235) {
+      this.setState({
+        bpm: this.state.bpm + 5,
+      });
+    }
+  }
+
   render() {
     const { playing, bpm } = this.state;
 
@@ -95,9 +113,9 @@ class Metronome extends Component {
           />
         </div>
         <div className="buttons">
-          <button className="decrease"><div className="down"></div></button>
+          <button className="decrease" onClick={this.decreaseClick}><div className="down"></div></button>
           <button className="start" onClick={this.startStop}>{!playing ? 'Start' : 'Stop'}</button>
-          <button className="increase"><div className="up"></div></button>
+          <button className="increase" onClick={this.increaseClick}><div className="up"></div></button>
         </div>
       </div>
     );
