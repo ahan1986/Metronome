@@ -28,8 +28,39 @@ class Metronome extends Component {
   }
 
   startStop = () => {
-    // uses the audio that was downloaded and loaded into the file. We are using the play()
-    this.click1.play();
+    if (this.state.playing) {
+      //Stop the timer
+      clearInterval(this.timer);
+      this.setState({
+        playing: false,
+      });
+    } else {
+      setInterval(this.playClick(), 1000);
+      this.setState({
+        count: 0,
+        playing: true
+        //Play a click 'immediately' (after setState finishes)
+      });
+
+        this.playClick()
+    };
+  }
+
+  playClick = () => {
+    const { count, beatsPerMeasure } = this.state;
+
+    // The first beat will have a different sound than the others like a real metronome.
+    if (count % beatsPerMeasure == 0) {
+      // uses the audio that was downloaded and loaded into the file. We are using the play()
+      this.click1.play();
+    } else {
+      this.click2.play();
+    }
+
+    //Keep track of which beat we're on
+    this.setState(state => ({
+      count: ( state.count +1 ) % state.beatsPerMeasure
+    }));
   }
 
   render() {
@@ -43,11 +74,11 @@ class Metronome extends Component {
             type="range"
             min="60"
             max="240"
-            value={bpm} 
+            value={bpm}
             onChange={this.handleBpmChange}
           />
         </div>
-        <button  onClick={this.startStop}>{playing ? 'Playing' : 'Stop'}</button>
+        <button onClick={this.startStop}>{!playing ? 'Start' : 'Stop'}</button>
       </div>
     );
   }
