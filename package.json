@@ -1,0 +1,37 @@
+{
+  "name": "metronome",
+  "version": "1.0.0",
+  "description": "Using react to create a simple metronome",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd react-metronome && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd react-metronome && yarn install",
+    "build": "cd react-metronome && npm run build",
+    "heroku-postbuild": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahan1986/Metronome.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahan1986/Metronome/issues"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
+  },
+  "homepage": "https://github.com/ahan1986/Metronome#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "build": "^0.1.4",
+    "express": "^4.16.3",
+    "if-env": "^1.0.4"
+  }
+}
